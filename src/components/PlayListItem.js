@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PlayListItem from './PlayListItem';
 
-export default class PlayList extends component {
+
+export default class PlayListItem extends Component {
   render () {
-    return()
+    return
   }
 }
