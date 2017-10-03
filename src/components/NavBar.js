@@ -4,9 +4,9 @@ import '../styles/index.css'
 export default class NavBar extends Component {
   render () {
     return (
-      <div class="container">
-        <nav class="navbar">
-          <img src="../public/favicon.ico" alt=""/>
+      <div className="container">
+        <nav className="navbar d-flex flex-row">
+          <img className="w-50 h-50 logo" src=".././public/favicon.ico" alt="i am an icon"/>
           <h1>Play What!?</h1>
         </nav>
       </div>
