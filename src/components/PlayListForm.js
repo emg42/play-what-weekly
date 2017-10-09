@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import '../styles/index.css'
 
 export default class PlayListForm extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       userName: "",
       songArtist: "",
@@ -12,30 +12,68 @@ export default class PlayListForm extends Component {
     }
   }
 
+  addToList = (e) => {
+      e.preventDefault();
+
+      let listItem = JSON.stringify(this.state);
+
+      fetch("https://tiny-lasagna-server.herokuapp.com/collections/playlisting", {
+        method: "POST",
+        body: listItem,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      }
+    }
+    ).then(response => {
+      console.log(response, "yay");
+
+    }).catch(err => {
+      console.log(err, "boo!");
+    });
+    this.setState({userName: '', songNotes: '', songArtist: '', songTitle:''});
+  }
+
+
   _handleSubmit = (event) => {
     event.preventDefault()
-    console.log('handling submit')
-    // this.setState({displayName: this.state.inputVal, inputVal: ""})
+    // console.log('handling submit', this)
+    const newSearch = {
+      userName: this.state.userName,
+      songArtist: this.state.songArtist,
+      songTitle: this.state.songTitle,
+      songNotes: this.state.songNotes
+    }
 }
 
   _handleUserName = (event) => {
     // console.log('handling change')
+    // console.log(event.target);
+
     this.setState({userName: event.target.value})
   }
   _handleSongArtist = (event) => {
+
     this.setState({songArtist: event.target.value})
   }
   _handleSongTitle = (event) => {
+    // console.log(event.target);
+
     this.setState({songTitle: event.target.value})
   }
 
   _handleSongNotes = (event) => {
+    // console.log(event.target);
+
     this.setState({songNotes: event.target.value})
   }
+
+
+
   render () {
-    console.log(this.state)
+    // console.log(this.state)
     return(
-      <form onSubmit={this._handleSubmit}>
+      <form onSubmit={this.addToList}>
         <fieldset>
           <div className="form-group">
             <label>Username</label>
@@ -54,7 +92,7 @@ export default class PlayListForm extends Component {
           </div>
           <br/>
           <div className="form-group">
-            <label for="notes-text-area">Notes about Song</label>
+            <label htmlFor="notes-text-area">Notes about Song</label>
             <textarea onChange={this._handleSongNotes} value={this.state.songNotes} className="form-control" id="notes-text-area"></textarea>
           </div>
           <button className="btn btn-primary" type="submit">Submit</button>

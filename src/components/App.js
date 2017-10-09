@@ -14,6 +14,7 @@ class App extends Component {
       <div className="container wrapper">
         <NavBar/>
         <PlayListForm/>
+        <PlayList/>
     </div>
     )
   }
